@@ -3,7 +3,6 @@
 #include "potentiometer.h"
 
 #define SLAVE_ID 0
-#define BYTE_MASK 0x000F
 #define PACKET_SIZE sizeof(float)*2
 
 // From: https://forum.arduino.cc/t/union-and-struct-to-make-byte-array/155199
