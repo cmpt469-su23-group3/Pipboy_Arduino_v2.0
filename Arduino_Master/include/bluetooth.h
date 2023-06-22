@@ -14,4 +14,4 @@ bool Bt_connect(void);
 bool Bt_isConnected(void);
 
 // Update the value of the potentiometers to send to the connected device.
-void Bt_update(float newPotOneVal, float newPotTwoVal);
+void Bt_update(float newPotOneVal, float newPotTwoVal, float newPotThreeVal);

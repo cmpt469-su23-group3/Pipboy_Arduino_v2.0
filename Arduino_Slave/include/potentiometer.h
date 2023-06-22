@@ -2,6 +2,7 @@
 
 #define POT_ONE_PIN A0
 #define POT_TWO_PIN A1
+#define POT_THREE_PIN A2
 
 // Function for maping the output of analogRead (0 to 1023)
 // to a percentage value.

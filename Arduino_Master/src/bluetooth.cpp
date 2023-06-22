@@ -5,13 +5,15 @@
 static const char* POT_SERVICE_UUID = "bde52184-064d-11ee-be56-0242ac120002";
 static const char* POT_ONE_CHARACTERISTIC_UUID = "579ff808-064e-11ee-be56-0242ac120002";
 static const char* POT_TWO_CHARACTERISTIC_UUID = "5eba6056-064e-11ee-be56-0242ac120002";
+static const char* POT_THREE_CHARACTERISTIC_UUID = "b0f7abf6-0e5c-11ee-be56-0242ac120002";
 
 static BLEService Bt_potService(POT_SERVICE_UUID);
 static BLEFloatCharacteristic Bt_potOneCharacteristic(POT_ONE_CHARACTERISTIC_UUID, BLERead | BLENotify);
 static BLEFloatCharacteristic Bt_potTwoCharacteristic(POT_TWO_CHARACTERISTIC_UUID, BLERead | BLENotify);
-static BLEDevice central;
+static BLEFloatCharacteristic Bt_potThreeCharacteristic(POT_THREE_CHARACTERISTIC_UUID, BLERead | BLENotify);
 
-static float potOneVal, potTwoVal;
+static BLEDevice central;
+static float potOneVal, potTwoVal, potThreeVal;
 
 bool Bt_init(void)
 {
@@ -25,6 +27,7 @@ bool Bt_init(void)
    BLE.setAdvertisedService(Bt_potService);
    Bt_potService.addCharacteristic(Bt_potOneCharacteristic);
    Bt_potService.addCharacteristic(Bt_potTwoCharacteristic);
+   Bt_potService.addCharacteristic(Bt_potThreeCharacteristic);
    BLE.addService(Bt_potService);
 
    BLE.advertise();
@@ -50,13 +53,13 @@ bool Bt_isConnected(void)
    return central.connected();
 }
 
-void Bt_update(float newPotOneVal, float newPotTwoVal)
+void Bt_update(float newPotOneVal, float newPotTwoVal, float newPotThreeVal)
 {
-   // TODO: add tolerance for outliers due to low voltage POT
    potOneVal = newPotOneVal;
    potTwoVal = newPotTwoVal;
+   potThreeVal = newPotThreeVal;
 
    Bt_potOneCharacteristic.writeValue(potOneVal);
    Bt_potTwoCharacteristic.writeValue(potTwoVal);
+   Bt_potThreeCharacteristic.writeValue(potThreeVal);
 }
-
